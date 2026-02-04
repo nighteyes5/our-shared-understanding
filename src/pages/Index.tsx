@@ -1,17 +1,20 @@
 import { useState, useMemo } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Settings, BarChart3, Table, Calculator } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Settings, BarChart3, Table, Calculator, Map } from 'lucide-react';
 import Header from '@/components/lte/Header';
 import ParameterForm from '@/components/lte/ParameterForm';
 import ResultsDisplay from '@/components/lte/ResultsDisplay';
 import CoverageChart from '@/components/lte/CoverageChart';
+import CoverageMap from '@/components/lte/CoverageMap';
 import { useLTECalculations } from '@/hooks/useLTECalculations';
 import { DEFAULT_LTE_PARAMETERS } from '@/types/lte';
-import type { LTEParameters } from '@/types/lte';
+import type { LTEParameters, PropagationModel } from '@/types/lte';
 
 const Index = () => {
   const [parameters, setParameters] = useState<LTEParameters>(DEFAULT_LTE_PARAMETERS);
+  const [selectedModel, setSelectedModel] = useState<PropagationModel>('okumura-hata');
   const { compareModels } = useLTECalculations();
 
   const results = useMemo(() => compareModels(parameters), [parameters, compareModels]);
@@ -22,18 +25,22 @@ const Index = () => {
       
       <main className="container px-4 py-6">
         <Tabs defaultValue="parameters" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-grid">
+          <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
             <TabsTrigger value="parameters" className="gap-2">
               <Settings className="h-4 w-4" />
-              <span className="hidden sm:inline">Paramètres</span>
+              <span className="hidden sm:inline">Parametres</span>
             </TabsTrigger>
             <TabsTrigger value="results" className="gap-2">
               <Table className="h-4 w-4" />
-              <span className="hidden sm:inline">Résultats</span>
+              <span className="hidden sm:inline">Resultats</span>
             </TabsTrigger>
             <TabsTrigger value="charts" className="gap-2">
               <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">Visualisation</span>
+              <span className="hidden sm:inline">Graphiques</span>
+            </TabsTrigger>
+            <TabsTrigger value="map" className="gap-2">
+              <Map className="h-4 w-4" />
+              <span className="hidden sm:inline">Carte</span>
             </TabsTrigger>
           </TabsList>
 
@@ -119,15 +126,53 @@ const Index = () => {
               <div className="flex items-center gap-3">
                 <BarChart3 className="h-6 w-6 text-primary" />
                 <div>
-                  <h2 className="font-semibold">Visualisation des données</h2>
+                  <h2 className="font-semibold">Visualisation des donnees</h2>
                   <p className="text-sm text-muted-foreground">
-                    Graphiques de couverture et comparaison des modèles
+                    Graphiques de couverture et comparaison des modeles
                   </p>
                 </div>
               </div>
             </div>
             
             <CoverageChart parameters={parameters} />
+          </TabsContent>
+
+          <TabsContent value="map" className="space-y-6">
+            <div className="rounded-lg bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Map className="h-6 w-6 text-primary" />
+                  <div>
+                    <h2 className="font-semibold">Carte geographique</h2>
+                    <p className="text-sm text-muted-foreground">
+                      Visualisez la couverture sur une carte interactive
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground">Modele:</span>
+                  <Select
+                    value={selectedModel}
+                    onValueChange={(value) => setSelectedModel(value as PropagationModel)}
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="okumura-hata">Okumura-Hata</SelectItem>
+                      <SelectItem value="cost231-hata">COST 231-Hata</SelectItem>
+                      <SelectItem value="3gpp">3GPP TR 36.814</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+            
+            <CoverageMap
+              parameters={parameters}
+              results={results.models}
+              selectedModel={selectedModel}
+            />
           </TabsContent>
         </Tabs>
       </main>
