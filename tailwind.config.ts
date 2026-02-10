@@ -57,6 +57,36 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Palette LTE/RF - Couleurs de base
+        lte: {
+          bg: "#F6F9FC",        // Background principal - Bleu très clair
+          card: "#FFFFFF",      // Cartes / panels - Blanc pur
+          header: "#0B1F33",    // Header / Sidebar - Bleu nuit
+          text: "#1F2937",      // Texte principal - Gris foncé
+          "text-secondary": "#6B7280", // Texte secondaire - Gris
+        },
+        // Couleurs techniques (immersives)
+        tech: {
+          primary: "#2563EB",   // Bleu LTE - Actions principales
+          secondary: "#3B82F6", // Bleu clair - Hover
+          cyan: "#06B6D4",      // Cyan radio - Accent data/stats
+          success: "#16A34A",   // Vert soft - Succès / OK
+          warning: "#F59E0B",   // Orange RF - Alerte / pertes
+          error: "#DC2626",     // Rouge - Erreur critique
+        },
+        // Alias sémantiques
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "#FFFFFF",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "#FFFFFF",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          foreground: "#FFFFFF",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

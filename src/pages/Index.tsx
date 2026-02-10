@@ -1,13 +1,15 @@
 import { useState, useMemo } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Settings, BarChart3, Table, Calculator } from 'lucide-react';
+import { Settings, BarChart3, Table, Calculator, RotateCcw } from 'lucide-react';
 import Header from '@/components/lte/Header';
 import ParameterForm from '@/components/lte/ParameterForm';
 import ResultsDisplay from '@/components/lte/ResultsDisplay';
 import CoverageChart from '@/components/lte/CoverageChart';
+import { SaveCalculation } from '@/components/lte/SaveCalculation';
 import { useLTECalculations } from '@/hooks/useLTECalculations';
 import { DEFAULT_LTE_PARAMETERS } from '@/types/lte';
+import { toast } from '@/hooks/use-toast';
 import type { LTEParameters } from '@/types/lte';
 
 const Index = () => {
@@ -15,6 +17,14 @@ const Index = () => {
   const { compareModels } = useLTECalculations();
 
   const results = useMemo(() => compareModels(parameters), [parameters, compareModels]);
+
+  const handleResetParameters = () => {
+    setParameters(DEFAULT_LTE_PARAMETERS);
+    toast({
+      title: "Paramètres réinitialisés",
+      description: "Tous les paramètres ont été remis aux valeurs par défaut",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,14 +49,25 @@ const Index = () => {
 
           <TabsContent value="parameters" className="space-y-6">
             <div className="rounded-lg bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
-              <div className="flex items-center gap-3">
-                <Calculator className="h-6 w-6 text-primary" />
-                <div>
-                  <h2 className="font-semibold">Configuration des paramètres</h2>
-                  <p className="text-sm text-muted-foreground">
-                    Définissez les caractéristiques du réseau LTE à dimensionner
-                  </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Calculator className="h-6 w-6 text-primary" />
+                  <div>
+                    <h2 className="font-semibold">Configuration des paramètres</h2>
+                    <p className="text-sm text-muted-foreground">
+                      Définissez les caractéristiques du réseau LTE à dimensionner
+                    </p>
+                  </div>
                 </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleResetParameters}
+                  className="gap-2"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  Réinitialiser
+                </Button>
               </div>
             </div>
             
@@ -84,30 +105,26 @@ const Index = () => {
                     </div>
                   </div>
                 </div>
-                
-                <Button 
-                  className="w-full" 
-                  onClick={() => {
-                    const tab = document.querySelector('[data-state="inactive"][value="results"]') as HTMLElement;
-                    tab?.click();
-                  }}
-                >
-                  Voir les résultats détaillés
-                </Button>
               </div>
             </div>
           </TabsContent>
 
           <TabsContent value="results" className="space-y-6">
             <div className="rounded-lg bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
-              <div className="flex items-center gap-3">
-                <Table className="h-6 w-6 text-primary" />
-                <div>
-                  <h2 className="font-semibold">Résultats du dimensionnement</h2>
-                  <p className="text-sm text-muted-foreground">
-                    Comparaison des trois modèles de propagation
-                  </p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Table className="h-6 w-6 text-primary" />
+                  <div>
+                    <h2 className="font-semibold">Résultats du dimensionnement</h2>
+                    <p className="text-sm text-muted-foreground">
+                      Comparaison des trois modèles de propagation
+                    </p>
+                  </div>
                 </div>
+                <SaveCalculation 
+                  parameters={parameters} 
+                  results={results}
+                />
               </div>
             </div>
             

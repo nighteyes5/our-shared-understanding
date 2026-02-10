@@ -1,0 +1,112 @@
+{
+  "version": "1.0",
+  "exportDate": "2024-01-15T10:30:00.000Z",
+  "sites": [
+    {
+      "id": "site-1705315200000-abc123",
+      "name": "Site Dakar Centre",
+      "position": {
+        "lat": 14.6928,
+        "lng": -17.4467
+      },
+      "power": 43,
+      "frequency": 1800,
+      "antennaHeight": 30,
+      "coverageRadius": 2.5,
+      "environment": "urban",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:00:00.000Z",
+      "propagationModel": "cost231-hata"
+    },
+    {
+      "id": "site-1705315260000-def456",
+      "name": "Site Plateau",
+      "position": {
+        "lat": 14.6937,
+        "lng": -17.4441
+      },
+      "power": 46,
+      "frequency": 2600,
+      "antennaHeight": 35,
+      "coverageRadius": 1.8,
+      "environment": "urban",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:01:00.000Z",
+      "propagationModel": "3gpp"
+    },
+    {
+      "id": "site-1705315320000-ghi789",
+      "name": "Site Almadies",
+      "position": {
+        "lat": 14.7392,
+        "lng": -17.5108
+      },
+      "power": 40,
+      "frequency": 900,
+      "antennaHeight": 25,
+      "coverageRadius": 5.2,
+      "environment": "suburban",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:02:00.000Z",
+      "propagationModel": "okumura-hata"
+    },
+    {
+      "id": "site-1705315380000-jkl012",
+      "name": "Site Yoff",
+      "position": {
+        "lat": 14.7453,
+        "lng": -17.4897
+      },
+      "power": 43,
+      "frequency": 1800,
+      "antennaHeight": 30,
+      "coverageRadius": 2.8,
+      "environment": "suburban",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:03:00.000Z",
+      "propagationModel": "cost231-hata"
+    },
+    {
+      "id": "site-1705315440000-mno345",
+      "name": "Site Rufisque",
+      "position": {
+        "lat": 14.7167,
+        "lng": -17.2667
+      },
+      "power": 40,
+      "frequency": 800,
+      "antennaHeight": 28,
+      "coverageRadius": 6.5,
+      "environment": "rural",
+      "isActive": true,
+      "createdAt": "2024-01-15T10:04:00.000Z",
+      "propagationModel": "okumura-hata"
+    }
+  ],
+  "globalPropagationModel": "cost231-hata",
+  "location": {
+    "type": "predefined",
+    "id": "dakar",
+    "name": "Dakar",
+    "center": {
+      "lat": 14.6928,
+      "lng": -17.4467
+    },
+    "zoom": 12
+  },
+  "statistics": {
+    "totalSites": 5,
+    "activeSites": 5,
+    "coverage": {
+      "totalCoverage": 125.5,
+      "averageRadius": 3.76,
+      "activeSites": 5,
+      "modelUsed": "COST 231-Hata"
+    },
+    "modelDistribution": {
+      "okumura-hata": 2,
+      "cost231-hata": 2,
+      "3gpp": 1
+    }
+  }
+}

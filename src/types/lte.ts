@@ -51,11 +51,11 @@ export interface ComparisonResult {
 export const DEFAULT_LTE_PARAMETERS: LTEParameters = {
   frequency: 1800,
   txPower: 43,
-  txAntennaGain: 18,
+  txAntennaGain: 15,
   txCableLoss: 2,
   rxAntennaGain: 0,
   rxCableLoss: 0,
-  rxSensitivity: -100,
+  rxSensitivity: -102,
   txAntennaHeight: 30,
   rxAntennaHeight: 1.5,
   environment: 'urban',
