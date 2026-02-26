@@ -1,6 +1,6 @@
 # Guide de Dépannage - Système d'Authentification
 
-## 🔧 Problèmes Résolus
+## 🔧 Problèmes Résolus s
 
 ### 1. Conflit de noms de méthodes
 **Problème :** Méthodes `getUsers()` en conflit dans `authService.ts`
